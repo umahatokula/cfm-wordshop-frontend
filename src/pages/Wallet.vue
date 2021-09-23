@@ -1,15 +1,17 @@
 <template>
   <div class="q-pa-md">
     <div class="q-py-md justify-end">
-      <q-btn :to="'/wallet/fund'" align="right" class="btn-fixed-width" color="teal-10" label="Add Units" flat />
+      <q-btn :to="'/wallet/fund'" align="right" class="btn-fixed-width" color="teal-10" label="Add Units" outline />
     </div>
     <p class="text-h6">Overview</p>
     <div class="row justify-between">
       <div class="col-6 q-pa-lg " style="min-height: 100px;">
-        Balance
+        <p>Balance</p>
+        <p class="text-h6 float-right q-pa-md">&#8358;{{ balance }}</p>
       </div>
       <div class="col-6 q-pa-lg" style="min-height: 100px;">
-        Used Credit
+        <p>Used Units</p>
+        <p class="text-h6 float-right q-pa-md">&#8358;{{ used }}</p>
       </div>
     </div>
     <div>
@@ -35,7 +37,9 @@ export default {
         { name: 'balance', label: 'Balance', field: 'balance', sortable: true },
         { name: 'type', label: 'Type', field: 'type' }
       ],
-      transactions: []
+      transactions: [],
+      balance: 0,
+      used: 0
     }
   },
   methods: {
@@ -45,6 +49,8 @@ export default {
         .then(response => {
           // console.log(response.data)
           this.transactions = response.data.transactions
+          this.balance = response.data.balance
+          this.used = response.data.used
         })
         .catch(e => {
           // console.log(e)
