@@ -70,16 +70,6 @@
             </q-item-section>
           </q-item>
 
-          <q-item to="/pre-order" exact active clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon name="shopping_cart" />
-            </q-item-section>
-
-            <q-item-section>
-              Pre-order
-            </q-item-section>
-          </q-item>
-
           <q-item v-if="token" to="/orders" exact active clickable v-ripple>
             <q-item-section avatar>
               <q-icon name="shopping_cart" />

@@ -90,14 +90,6 @@ const routes = [
       component: () => import('pages/Orders.vue'),
       props: true
     }]
-  }, {
-    path: '/pre-order',
-    component: () => import('src/layouts/MainLayout.vue'),
-    children: [{
-      path: '',
-      component: () => import('pages/PreOrder.vue'),
-      props: true
-    }]
   },
 
   // Always leave this as last one,

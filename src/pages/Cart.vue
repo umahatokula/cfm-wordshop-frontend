@@ -93,7 +93,7 @@
             </q-card-section>
 
             <q-card-actions align="right" class="text-primary">
-              <q-btn color="gold" unelevated label="Wallet Pay" @click="payWithETicket = true" />
+              <q-btn v-if="token" color="amber-9" unelevated label="Wallet Pay" @click="confirmWalletPay = true" />
               <q-btn color="primary" unelevated label="PIN Pay" @click="payWithETicket = true" />
               <paystack
                   :amount="cartTotal * 100"
@@ -184,6 +184,19 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="confirmWalletPay" persistent  :position="'top'">
+      <q-card style="width: 350px">
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm">Pay {{ cartTotal }} NGN from wallet?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="No" color="red" v-close-popup />
+          <q-btn @click="payFromWallet" flat label="Yes, Pay" color="green" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -216,7 +229,8 @@ export default {
       // paystackkey: 'pk_test_b7d6e536a44f6168e78a5f34333c10824c451475',
       paystackkey: 'pk_live_e2c0036b4d47e3b0e8551e74e1e4a0e6a8166ea5',
       showBundleItems: false,
-      bundleItems: []
+      bundleItems: [],
+      confirmWalletPay: false
     }
   },
   computed: {
@@ -280,6 +294,49 @@ export default {
         result += characters.charAt(Math.floor(Math.random() * charactersLength))
       }
       return result
+    },
+    payFromWallet () {
+      this.eTicket.email = this.customer.email
+      this.eTicket.customer_id = this.user.id ?? null
+      this.eTicket.amount = this.cartTotal
+      this.eTicket.trxref = this.makeid(10)
+      this.eTicket.bundles = this.cart.bundles
+      this.eTicket.products = this.cart.products
+
+      axios.post('api/transactions/pay/wallet', this.eTicket)
+        .then(response => {
+        //   console.log(response.data.transaction)
+          this.trxn = response.data
+          this.trxn.is_filled = true
+          if (response.data.status) {
+            this.clearCart()
+            this.$q.notify({
+              type: 'positive',
+              message: response.data.message
+            })
+            this.$router.push({ path: `downloads/${response.data.transaction}` })
+          } else {
+            this.$q.notify({
+              type: 'negative',
+              message: response.data.message
+            })
+          }
+        })
+        .catch(e => {
+        //   console.log(e)
+          if (!e.response) {
+          // network error
+            this.$q.notify({
+              type: 'negative',
+              message: 'Error: Network Error'
+            })
+          } else {
+            if (e.response.status === 422) {
+              this.errors = e.response.data.errors
+            // this.$q.notify('Ensure')
+            }
+          }
+        })
     },
     pinPay () {
       this.eTicket.email = this.customer.email
