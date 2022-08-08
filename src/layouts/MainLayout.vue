@@ -89,7 +89,7 @@
               Wallet
             </q-item-section>
           </q-item>
-
+<!--
           <q-item v-if="!token" to="/login" exact active clickable v-ripple>
             <q-item-section avatar>
               <q-icon name="shopping_cart" />
@@ -98,7 +98,7 @@
             <q-item-section>
               Login
             </q-item-section>
-          </q-item>
+          </q-item> -->
 
           <q-item v-if="token" @click="logout" exact active clickable v-ripple>
             <q-item-section avatar>

@@ -3,24 +3,20 @@
     <q-card class="my-card q-mb-lg">
       <q-card-section>
         <p>Note: Your download links will expire in <b>48 hours</b></p>
-        <p>For complaints and enquiries, kindly send a Whatsapp message to +2348164932264</p>
+        <p>For complaints and enquiries, kindly send a <b>WhatsApp</b> message to +2348164932264</p>
       </q-card-section>
     </q-card>
 
     <q-list v-for="orderItem in orderItems" :key="orderItem.id" bordered class="q-mb-sm">
-      <q-item  v-ripple>
+      <q-item v-ripple>
         <q-item-section>
           {{ orderItem.product.name }}
           <div class="text-caption text-weight-light q-mt-sm">{{ orderItem.product.preacher.name }}</div>
         </q-item-section>
         <q-item-section avatar>
-          <a
-            :href ="orderItem.temp_link"
-            download
-            target="_blank"
+          <a :href="orderItem.temp_link" download target="_blank"
             class="q-pa-sm bg-secondary text-white text-caption text-weight-light"
-            style="border-radius: 4px; text-decoration: none;"
-          >Download</a>
+            style="border-radius: 4px; text-decoration: none;">Download</a>
         </q-item-section>
       </q-item>
     </q-list>

@@ -3,17 +3,14 @@
     <div class="">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
-          <q-img
-            :src="product.large_image_path"
-            style="max-width: 650px; height: auto;"
-            :ratio="1"
-          >
+          <q-img :src="product.album_art" style="max-width: 650px; height: auto;" :ratio="1">
           </q-img>
         </div>
         <div class="col-xs-12 col-sm-6">
           <div class="row">
             <div class="col-12 q-mb-xs">
-              <strong><span class="text-h6">{{ product.name }}</span></strong> <span class="text-caption">({{ product.file_size }}MB)</span>
+              <strong><span class="text-h6">{{ product.name }}</span></strong> <span class="text-caption">({{
+              product.file_size }}MB)</span>
             </div>
             <div class="col-12 text-h6 q-mb-md text-caption text-weight-light q-mb-sm">
               {{ product.preacher ? product.preacher.name : "" }}
@@ -31,36 +28,12 @@
               {{ product.unit_price }} NGN
             </div>
           </div>
-          <q-btn
-            color="accent"
-            icon="file_download"
-            label="Download"
-            @click="downloadFile(product)"
-            push
-            style="width: 100%"
-            class="q-mb-sm"
-            v-if="product.unit_price == 0"
-          />
-          <q-btn
-            color="primary"
-            icon="add_shopping_cart"
-            label="Add To Cart"
-            @click="addToCart(product)"
-            push
-            style="width: 100%"
-            class="q-mb-sm"
-            v-if="product.unit_price > 0"
-          />
-          <q-btn
-            color="secondary"
-            icon="content_paste"
-            label="Copy Link"
-            @click="clipboard(product)"
-            push
-            :rounded="false"
-            unelevated
-            style="width: 100%"
-          />
+          <q-btn color="accent" icon="file_download" label="Download" @click="downloadFile(product)" push
+            style="width: 100%" class="q-mb-sm" v-if="product.unit_price == 0" />
+          <q-btn color="primary" icon="add_shopping_cart" label="Add To Cart" @click="addToCart(product)" push
+            style="width: 100%" class="q-mb-sm" v-if="product.unit_price > 0" />
+          <q-btn color="secondary" icon="content_paste" label="Copy Link" @click="clipboard(product)" push
+            :rounded="false" unelevated style="width: 100%" />
         </div>
       </div>
     </div>
@@ -157,7 +130,7 @@ export default {
       axios
         .get(`/api/products/details/${this.slug}`)
         .then(response => {
-          // console.log(response)
+          console.log(response)
           this.product = response.data.data
         })
         .catch(e => {

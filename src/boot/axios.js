@@ -5,5 +5,5 @@ import axios from 'axios'
 Vue.prototype.$axios = axios
 
 // Vue.prototype.$axios.defaults.baseURL = 'http://localhost/cfm-wordshop-v2/public/'
-Vue.prototype.$axios.defaults.baseURL = 'http://127.0.0.1:8000/'
-// Vue.prototype.$axios.defaults.baseURL = 'https://shop-resource-server.christfamilyministries.org/public/'
+Vue.prototype.$axios.defaults.baseURL = 'http://127.0.0.1:8082/'
+// Vue.prototype.$axios.defaults.baseURL = 'https://wordshop-backend.christfamilyministries.org/'

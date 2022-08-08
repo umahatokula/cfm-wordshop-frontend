@@ -4,49 +4,20 @@
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel name="series">
           <div class="row justify-start q-col-gutter-md">
-            <div
-              v-for="(bundle, index) in bundles"
-              :key="index"
-              class="col-xs-12 col-sm-6 col-md-3 q-mb-xs"
-            >
+            <div v-for="(bundle, index) in bundles" :key="index" class="col-xs-12 col-sm-6 col-md-3 q-mb-xs">
               <q-card class="gt-md" flat bordered square>
                 <q-card-section horizontal>
-                  <q-img
-                    class="col cursor-pointer"
-                    :src="bundle.large_image_path"
-                    @click="bundleDetail(bundle)"
-                  />
+                  <q-img class="col cursor-pointer" :src="bundle.large_image_path" @click="bundleDetail(bundle)" />
 
                   <q-card-actions vertical class="justify-around">
-                    <q-btn
-                      @click="getBundleItems(bundle.products)"
-                      flat
-                      round
-                      color="secondary"
-                      icon="visibility"
-                    />
-                    <q-btn
-                      @click="addBundleToCart(bundle)"
-                      flat
-                      round
-                      color="secondary"
-                      icon="shopping_cart"
-                    />
-                    <q-btn
-                      flat
-                      round
-                      color="secondary"
-                      icon="share"
-                      @click="bundleClipboard(bundle)"
-                    />
+                    <q-btn @click="getBundleItems(bundle.products)" flat round color="secondary" icon="visibility" />
+                    <q-btn @click="addBundleToCart(bundle)" flat round color="secondary" icon="shopping_cart" />
+                    <q-btn flat round color="secondary" icon="share" @click="bundleClipboard(bundle)" />
                   </q-card-actions>
                 </q-card-section>
                 <q-separator />
                 <q-card-section class="q-pl-md q-pb-md q-pa-xs">
-                  <div
-                    class="text-subtitle2 q-mt-sm cursor-pointer"
-                    @click="bundleDetail(bundle)"
-                  >
+                  <div class="text-subtitle2 q-mt-sm cursor-pointer" @click="bundleDetail(bundle)">
                     {{ bundle.name }}
                   </div>
                   <div class="text-caption q-mt-none">
@@ -56,17 +27,10 @@
               </q-card>
               <q-card class="lt-lg">
                 <q-card-section horizontal>
-                  <q-img
-                    class="col-5 cursor-pointer"
-                    :src="bundle.large_image_path"
-                    @click="bundleDetail(bundle)"
-                  />
+                  <q-img class="col-5 cursor-pointer" :src="bundle.large_image_path" @click="bundleDetail(bundle)" />
 
                   <q-card-section>
-                    <div
-                      class="text-subtitle1 q-mt-sm cursor-pointer"
-                      @click="bundleDetail(bundle)"
-                    >
+                    <div class="text-subtitle1 q-mt-sm cursor-pointer" @click="bundleDetail(bundle)">
                       {{ bundle.name }}
                     </div>
                     <div class="text-caption q-mt-none">
@@ -79,31 +43,13 @@
 
                 <q-card-actions class="justify-around q-pa-none">
                   <q-btn flat>
-                    <q-btn
-                      @click="getBundleItems(bundle.products)"
-                      flat
-                      round
-                      color="secondary"
-                      icon="visibility"
-                    />
+                    <q-btn @click="getBundleItems(bundle.products)" flat round color="secondary" icon="visibility" />
                   </q-btn>
                   <q-btn flat>
-                    <q-btn
-                      @click="addBundleToCart(bundle)"
-                      flat
-                      round
-                      color="secondary"
-                      icon="shopping_cart"
-                    />
+                    <q-btn @click="addBundleToCart(bundle)" flat round color="secondary" icon="shopping_cart" />
                   </q-btn>
                   <q-btn flat color="primary">
-                    <q-btn
-                      flat
-                      round
-                      color="secondary"
-                      icon="share"
-                      @click="bundleClipboard(bundle)"
-                    />
+                    <q-btn flat round color="secondary" icon="share" @click="bundleClipboard(bundle)" />
                   </q-btn>
                 </q-card-actions>
               </q-card>
@@ -113,34 +59,23 @@
 
         <q-tab-panel name="single">
           <div class="row justify-start q-col-gutter-md">
-            <div
-              v-for="(product, index) in products"
-              :key="index"
-              class="col-xs-12 col-sm-6 col-md-3 q-mb-xs"
-            >
+            <div v-for="(product, index) in products" :key="index" class="col-xs-12 col-sm-6 col-md-3 q-mb-xs">
               <q-card class="gt-md">
-                <q-img
-                  :src="product.large_image_path"
-                  class="cursor-pointer"
-                  @click="productDetail(product)"
-                />
+                <q-img :src="product.album_art" class="cursor-pointer" @click="productDetail(product)" />
 
                 <q-card-section>
-                  <div
-                    class="text-subtitle1 cursor-pointer"
-                    @click="productDetail(product)"
-                  >
+                  <div class="text-subtitle1 cursor-pointer" @click="productDetail(product)">
                     {{ product.name }}
                   </div>
-                  <div class="text-subtitle2">
+                  <div class="text-subtitle2 q-mt-sm">
+                    {{ product.preacher ? product.preacher.name : "" }}
+                  </div>
+                  <div class="text-caption text-weight-light">
                     {{ datePreached(product.date_preached) }}
                   </div>
                 </q-card-section>
 
-                <q-card-section
-                  v-if="product.unit_price == 0"
-                  class="q-pt-none"
-                >
+                <q-card-section v-if="product.unit_price == 0" class="q-pt-none">
                   Free
                 </q-card-section>
                 <q-card-section v-else class="q-pt-none">
@@ -148,98 +83,57 @@
                 </q-card-section>
                 <q-card-section>
                   <div class="col-6 text-right text-caption text-weight-light">
-                    <q-btn
-                      color="primary"
-                      label="Add To Cart"
-                      @click="addToCart(product)"
-                      push
-                      style="width: 100%"
-                      icon="add_shopping_cart"
-                      v-if="product.unit_price > 0"
-                    />
-                    <q-btn
-                      color="accent"
-                      label="Download"
-                      @click="downloadFile(product)"
-                      push
-                      style="width: 100%"
-                      icon="file_download"
-                      v-if="product.unit_price == 0"
-                    />
+                    <q-btn color="primary" label="Add To Cart" @click="addToCart(product)" push style="width: 100%"
+                      icon="add_shopping_cart" v-if="product.unit_price > 0" />
+                    <q-btn color="accent" label="Download" @click="downloadFile(product)" push style="width: 100%"
+                      icon="file_download" v-if="product.unit_price == 0" />
                   </div>
                 </q-card-section>
               </q-card>
               <q-card class="lt-lg" bordered>
                 <div class="row">
                   <div class="col-4">
-                    <q-img
-                      :src="product.large_image_path"
-                      style="width: 100%; height: auto;"
-                      :ratio="1"
-                      @click="productDetail(product)"
-                      class="cursor-pointer"
-                    >
+                    <q-img :src="product.album_art" style="width: 100%; height: auto;" :ratio="1"
+                      @click="productDetail(product)" class="cursor-pointer">
                     </q-img>
                   </div>
                   <div class="col-8 q-pa-sm">
                     <div class="column justify-evenly">
-                      <div class="col-12">
-                        <div
-                          class="text-subtitle2 cursor-pointer"
-                          style="line-height: 1rem;"
-                          @click="productDetail(product)"
-                        >
+                      <div class="col-12 q-pt-sm">
+                        <div class="text-subtitle2 cursor-pointer" style="line-height: 1rem;"
+                          @click="productDetail(product)">
                           {{ product.name }}
                         </div>
-                        <div class="text-caption text-weight-light q-mt-sm">
+                        <div class="text-subtitle2 q-mt-sm">
                           {{ product.preacher ? product.preacher.name : "" }}
                         </div>
-                        <div class="text-caption text-weight-thin q-mt-sm">
+                        <div class="text-caption text-weight-light q-mt-sm">
                           {{ datePreached(product.date_preached) }}
                         </div>
                         <div class="q-mt-xs"></div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="col-12 q-pa-sm purple-3"
-                    style="border-top: 1px solid #5e5d60"
-                  >
+                  <div class="col-12 q-pa-sm purple-3" style="border-top: 1px solid #5e5d60">
                     <div class="row justify-evenly">
-                      <div
-                        class="col-6 text-left text-caption text-weight-light"
-                        v-if="product.unit_price == 0"
-                      >
+                      <div class="col-6 text-left text-caption text-weight-light" v-if="product.unit_price == 0">
                         Free
                       </div>
-                      <div
-                        class="col-6 text-left text-caption text-weight-light"
-                        v-else
-                      >
+                      <div class="col-6 text-left text-caption text-weight-light" v-else>
                         {{ product.unit_price }} NGN
                       </div>
-                      <div
-                        class="col-6 text-right text-caption text-weight-light"
-                      >
-                        <a
-                          class="u-link text-accent text-weight-bold cursor-pointer"
-                          v-if="product.unit_price == 0"
-                          @click="downloadFile(product)"
-                        >
+                      <div class="col-6 text-right text-caption text-weight-light">
+                        <a class="u-link text-accent text-weight-bold cursor-pointer" v-if="product.unit_price == 0"
+                          @click="downloadFile(product)">
                           Download
                         </a>
-                        <a
-                          class="u-link text-primary text-weight-bold cursor-pointer"
-                          v-else
-                          @click="addToCart(product)"
-                        >
+                        <a class="u-link text-primary text-weight-bold cursor-pointer" v-else
+                          @click="addToCart(product)">
                           Add To Cart
                         </a>
                         |
-                        <a
-                          class="u-link text-secondary text-weight-bold cursor-pointer"
-                          @click="productDetail(product)"
-                        >
+                        <a class="u-link text-secondary text-weight-bold cursor-pointer"
+                          @click="productDetail(product)">
                           Details
                         </a>
                       </div>
@@ -250,19 +144,9 @@
             </div>
           </div>
           <div class="q-pa-lg flex flex-center">
-            <q-pagination
-              v-model="pagination_current"
-              :max="pagination_max"
-              :max-pages="1"
-              color="primary"
-              @click="set"
-              :direction-links="true"
-              :boundary-links="true"
-              icon-first="skip_previous"
-              icon-last="skip_next"
-              icon-prev="fast_rewind"
-              icon-next="fast_forward"
-            >
+            <q-pagination v-model="pagination_current" :max="pagination_max" :max-pages="1" color="primary" @click="set"
+              :direction-links="true" :boundary-links="true" icon-first="skip_previous" icon-last="skip_next"
+              icon-prev="fast_rewind" icon-next="fast_forward">
             </q-pagination>
           </div>
         </q-tab-panel>
@@ -287,7 +171,7 @@
                 <q-item-label>{{ item.name }}</q-item-label>
                 <q-item-label caption>{{
                   item.preacher ? item.preacher.name : ""
-                }}</q-item-label>
+                  }}</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
@@ -329,9 +213,9 @@ export default {
       const searchString = this.$store.state.products.searchString
 
       if (searchString === '' || searchString === 'undefined') {
-        return this.$store.state.products.products
+        return this.$store.state.products.products.data
       }
-      return this.$store.state.products.products
+      return this.$store.state.products.products.data
     },
     tab: {
       // getter
@@ -352,6 +236,7 @@ export default {
       }
     },
     pagination_max () {
+      // console.log(this.$store.state.products)
       return this.$store.state.products.pagination.max
     }
   },

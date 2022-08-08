@@ -8,43 +8,50 @@
               <q-item-label header>Cart Items</q-item-label>
 
               <div v-if="cart.products">
-              <q-item v-for="(bundle) in cart.bundles" :key="bundle.id">
-                <img :src="bundle.large_image_path" ratio="1" style="width: 80px">
-                <q-item-section top avatar>
-                  <q-item-section thumbnail>
+                <q-item v-for="(bundle) in cart.bundles" :key="bundle.id">
+                  <q-img :src="bundle.large_image_path" style="width: 100%; height: auto;" :ratio="1"
+                    class="cursor-pointer">
+                  </q-img>
+                  <q-item-section top avatar>
+                    <q-item-section thumbnail>
+                    </q-item-section>
                   </q-item-section>
-                </q-item-section>
 
-                <q-item-section>
-                  <q-item-label class="text-subtitle2">{{ bundle.name }}</q-item-label>
-                  <q-item-label class="text-caption text-weight-light" caption lines="2">
-                    <a href="#" class="text-secondary" @click.prevent="getBundleItems(bundle.products)">{{ bundle.products.length }} title(s) in series</a>
-                  </q-item-label>
-                  <div class="text-caption text-weight-bold q-mt-md">&#8358; {{ bundle.price }}</div>
-                </q-item-section>
-
-                <q-item-section side top class="column justify-center">
-                  <q-icon name="delete" color="red" size="xs" @click="removeBundleFromCart(bundle)" class="cursor-pointer" />
-                </q-item-section>
-              </q-item>
-
-              <q-item v-for="(product) in cart.products" :key="product.id">
-                <img :src="product.large_image_path" ratio="1" style="width: 80px">
-                <q-item-section top avatar>
-                  <q-item-section thumbnail>
+                  <q-item-section>
+                    <q-item-label class="text-subtitle2">{{ bundle.name }}</q-item-label>
+                    <q-item-label class="text-caption text-weight-light" caption lines="2">
+                      <a href="#" class="text-secondary" @click.prevent="getBundleItems(bundle.products)">{{
+                      bundle.products.length }} title(s) in series</a>
+                    </q-item-label>
+                    <div class="text-caption text-weight-bold q-mt-md">&#8358; {{ bundle.price }}</div>
                   </q-item-section>
-                </q-item-section>
 
-                <q-item-section>
-                  <q-item-label class="text-subtitle2">{{ product.name }}</q-item-label>
-                  <q-item-label class="text-caption text-weight-light" caption lines="2">{{ product.preacher ? product.preacher.name : '' }}</q-item-label>
-                  <div class="text-caption text-weight-bold q-mt-md">&#8358; {{ product.unit_price }}</div>
-                </q-item-section>
+                  <q-item-section side top class="column justify-center">
+                    <q-icon name="delete" color="red" size="xs" @click="removeBundleFromCart(bundle)"
+                      class="cursor-pointer" />
+                  </q-item-section>
+                </q-item>
 
-                <q-item-section side top class="column justify-center">
-                  <q-icon name="delete" color="red" size="xs" @click="removeFromCart(product)" class="cursor-pointer" />
-                </q-item-section>
-              </q-item>
+                <q-item v-for="(product) in cart.products" :key="product.id">
+                  <q-img :src="product.album_art" style="width: 80px; height: 80px; border-radius: 4px;" :ratio="1" class="cursor-pointer">
+                  </q-img>
+                  <q-item-section top avatar>
+                    <q-item-section thumbnail>
+                    </q-item-section>
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item-label class="text-subtitle2">{{ product.name }}</q-item-label>
+                    <q-item-label class="text-caption text-weight-light" caption lines="2">{{ product.preacher ?
+                    product.preacher.name : '' }}</q-item-label>
+                    <div class="text-caption text-weight-bold q-mt-md">&#8358; {{ product.unit_price }}</div>
+                  </q-item-section>
+
+                  <q-item-section side top class="column justify-center">
+                    <q-icon name="delete" color="red" size="xs" @click="removeFromCart(product)"
+                      class="cursor-pointer" />
+                  </q-item-section>
+                </q-item>
               </div>
 
               <q-item dense class="q-pa-md">
@@ -64,9 +71,9 @@
                 </q-item-section>
               </q-item>
             </q-list>
-          <div v-else>
-            <p>There are no items in your cart. Go do some shopping.</p>
-          </div>
+            <div v-else>
+              <p>There are no items in your cart. Go do some shopping.</p>
+            </div>
           </div>
         </q-card-section>
       </q-card>
@@ -89,23 +96,17 @@
             </q-card-section>
 
             <q-card-section class="q-pt-lg">
-              <q-input type="email" dense v-model="customer.email" label="Email" autofocus @keyup.enter="prompt = false" />
+              <q-input type="email" dense v-model="customer.email" label="Email" autofocus
+                @keyup.enter="prompt = false" />
             </q-card-section>
 
             <q-card-actions align="right" class="text-primary">
               <q-btn v-if="token" color="amber-9" unelevated label="Wallet Pay" @click="confirmWalletPay = true" />
               <q-btn color="primary" unelevated label="PIN Pay" @click="payWithETicket = true" />
-              <paystack
-                  :amount="cartTotal * 100"
-                  :email="customer.email"
-                  :paystackkey="paystackkey"
-                  :reference="reference"
-                  :callback="callback"
-                  :close="close"
-                  class="u-btn cursor-pointer"
-                  style="border-radius: 4px; padding: 8px 15px; text-decoration: none; color: white; border: 0; margin: 15px 8px; font-weight: 500;"
-                >
-                  CARD PAY
+              <paystack :amount="cartTotal * 100" :email="customer.email" :paystackkey="paystackkey"
+                :reference="reference" :callback="callback" :close="close" class="u-btn cursor-pointer"
+                style="border-radius: 4px; padding: 8px 15px; text-decoration: none; color: white; border: 0; margin: 15px 8px; font-weight: 500;">
+                CARD PAY
               </paystack>
             </q-card-actions>
           </q-card>
@@ -185,7 +186,7 @@
       </q-card>
     </q-dialog>
 
-    <q-dialog v-model="confirmWalletPay" persistent  :position="'top'">
+    <q-dialog v-model="confirmWalletPay" persistent :position="'top'">
       <q-card style="width: 350px">
         <q-card-section class="row items-center">
           <span class="q-ml-sm">Pay {{ cartTotal }} NGN from wallet?</span>
@@ -226,7 +227,7 @@ export default {
         status: null,
         message: ''
       },
-      // paystackkey: 'pk_test_b7d6e536a44f6168e78a5f34333c10824c451475',
+      // paystackkey: 'pk_test_1868497b412662f1ab265218caffa56830eb32be',
       paystackkey: 'pk_live_e2c0036b4d47e3b0e8551e74e1e4a0e6a8166ea5',
       showBundleItems: false,
       bundleItems: [],

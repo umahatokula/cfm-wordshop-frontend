@@ -12,7 +12,7 @@ export function setSearchString (context, searchString) {
   //       const bundles = response
   //       context.commit('searchBundles', bundles)
   //     })
-  axios.get(`/api/products/search/${searchString}`)
+  axios.get(`/api/search/${searchString}/20`)
     .then(response => {
       const products = response
       context.commit('searchProducts', products)
@@ -67,7 +67,7 @@ export function addToCart (context, product) {
   axios
     .put(`api/products/${product.id}/update/quantity/decrease`)
     .then(res => {
-      context.dispatch('getAllProducts')
+      context.dispatch('getAllProducts', context.state.pagination.current)
     })
     .catch(e => {
       console.log(e)

@@ -13,13 +13,13 @@ export function setSearchString (state, payload) {
 
 export function searchBundles (state, payload) {
   state.bundles = payload.data.data
-  state.pagination.current = payload.data.current_page
+  state.pagination.current = payload.data.data.current_page
   state.pagination.max = payload.data.last_page
 }
 
 export function searchProducts (state, payload) {
   state.products = payload.data.data
-  state.pagination.current = payload.data.current_page
+  state.pagination.current = payload.data.data.current_page
   state.pagination.max = payload.data.last_page
 }
 
@@ -33,8 +33,8 @@ export function setPagination (state, payload) {
 
 export function getAllProducts (state, payload) {
   state.products = payload.data.data
-  state.pagination.current = payload.data.current_page
-  state.pagination.max = payload.data.last_page
+  state.pagination.current = payload.data.data.current_page
+  state.pagination.max = payload.data.data.last_page
 }
 
 export function getAllBundles (state, payload) {

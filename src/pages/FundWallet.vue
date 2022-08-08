@@ -36,8 +36,8 @@ export default {
       wallet: {
         amount: ''
       },
-      paystackkey: 'pk_test_57594caa2c9282d668487b60efe3fd8419f69cb7'
-      // paystackkey: 'pk_live_e2c0036b4d47e3b0e8551e74e1e4a0e6a8166ea5'
+      // paystackkey: 'pk_test_57594caa2c9282d668487b60efe3fd8419f69cb7'
+      paystackkey: 'pk_live_e2c0036b4d47e3b0e8551e74e1e4a0e6a8166ea5'
     }
   },
   computed: {
