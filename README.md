@@ -52,29 +52,6 @@ Wordshop is built using the following technologies and frameworks:
 - Node.js: A JavaScript runtime for server-side development.
 - Express.js: A minimal and flexible web application framework for Node.js.
 
-## Contributing
-
-We welcome contributions from the community to enhance Wordshop. If you would like to contribute, please follow these steps:
-
-1. Fork the Wordshop repository.
-
-2. Create a new branch for your feature or bug fix:
-   ```
-   git checkout -b feature/your-feature-name
-   ```
-
-3. Make the necessary changes and commit them:
-   ```
-   git commit -m "Add your commit message here"
-   ```
-
-4. Push your changes to your forked repository:
-   ```
-   git push origin feature/your-feature-name
-   ```
-
-5. Open a pull request against the main repository. Please provide a clear description of your changes and their purpose.
-
 ## License
 
 Wordshop is proprietary software and its use is subject to the terms and conditions specified by the software provider.
